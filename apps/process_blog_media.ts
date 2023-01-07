@@ -2,6 +2,9 @@
  * Process photos, videos, and audio for my blog.
  * Uses Imagemagick for images, ffmpeg for videos/audio
  *
+ * @reference
+ * https://github.com/dlemstra/magick-wasm/blob/main/src/magick-image.ts
+ *
  * @todo
  *   - Build HTML string for gallery copypasta
  *   - Handle png
@@ -11,13 +14,13 @@
 import {
   basename,
   ColorSpace,
-  ensureDir,
   dirname,
+  ensureDir,
   ensureFile,
-  join,
   ImageMagick,
   IMagickImage,
   initializeImageMagick,
+  join,
   MagickFormat,
   OrientationType,
 } from "../deps.ts";
@@ -43,7 +46,6 @@ for await (const dirEntry of Deno.readDir(baseDir)) {
   }
 }
 
-
 // Blog-post Size
 function medium(data, baseDir, fileName) {
   ImageMagick.read(data, (img: IMagickImage) => {
@@ -54,7 +56,8 @@ function medium(data, baseDir, fileName) {
     if (orientation == 6) img.rotate(90);
 
     img.write(
-      (data: Uint8Array) => Deno.writeFile(`${baseDir}/medium/${fileName}`, data),
+      (data: Uint8Array) =>
+        Deno.writeFile(`${baseDir}/medium/${fileName}`, data),
       MagickFormat.Jpeg,
     );
   });
