@@ -10,7 +10,7 @@ const DESKTOP = join(Deno.env.get("HOME"), "Desktop");
 for await (const dirEntry of Deno.readDir(PHOTO_PATH)) {
   if (dirEntry.isDirectory) {
     const [_, yearText, month, day] = dirEntry.name.match(/^(....)(..)(..)/);
-    const yearName = String(Number(yearText) + 1020);
+    const yearName = String(2023);
     const monthName = [yearName, month].join("_");
     const dayName = [yearName, month, day].join("_");
     const prevLocation = join(PHOTO_PATH, dirEntry.name);
